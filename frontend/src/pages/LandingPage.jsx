@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import hero from '../assets/hero.png';
+import SignUp from './Auth/SingUp';
+import Login from './Auth/Login'
+import Modal from '../components/Modal';
+
 
 const LandingPage = () => {
   const navigate = useNavigate();
-  const [openAuthmodel, setOpenAuthModel] = useState(false);
+  const [openAuthmodel, setOpenAuthModel] = useState(true);
   const [currentPage, setCurrentPage] = useState("login");
 
   const handleCTA = () => {
-    navigate('/create'); // Navigate to resume creation (or any route you want)
+    
   };
 
   return (
@@ -85,6 +89,21 @@ const LandingPage = () => {
         <div className="text-sm bg-gray-50 text-gray-500 text-center p-5 mt-16 rounded-md">
           Made with ❤️ by You — Happy Coding!
         </div>
+
+<Modal 
+  isOpen={openAuthmodel}
+  onClose={() => {
+    setOpenAuthModel(false);
+    setCurrentPage("login");
+  }}
+  hideHeader
+>
+  <div>
+    {currentPage === "login" && <Login setCurrentPage={setCurrentPage} />}
+    {currentPage === "signup" && <SignUp setCurrentPage={setCurrentPage} />}
+  </div>
+</Modal>
+
       </div>
     </div>
   );
