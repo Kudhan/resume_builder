@@ -1,4 +1,5 @@
 import React from 'react';
+import { GiTireIronCross } from "react-icons/gi";
 
 const Modal = ({
   children,
@@ -35,28 +36,14 @@ const Modal = ({
         {/* Close Button */}
         <button
           type="button"
-          className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 flex justify-center items-center absolute top-3.5 right-3.5"
+          className="text-black bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 flex justify-center items-center absolute top-3.5 right-3.5"
           onClick={onClose}
         >
-          <svg
-            className="w-3 h-3"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 14 14"
-          >
-            <path
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M1 1l12 12M13 1L1 13"
-            />
-          </svg>
+          <GiTireIronCross />
         </button>
 
         {/* Modal Body */}
-        <div className="flex-1 overflow-y-auto p-4 custom-scrollbar">
+        <div className="flex-1 overflow-y-auto p-4 ">
           {children}
         </div>
       </div>

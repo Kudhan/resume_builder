@@ -1,19 +1,24 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Eye, EyeOff } from 'lucide-react';
+import Input from '../../components/inputs/input';
+import { validateEmail } from '../../utils/helper';
+
 
 const Login = ({ setCurrentPage }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!validateEmail(email) || !password) {
-      setError('Please fill in both fields.');
+    if(!validateEmail(email)){
+      setError('Invalid email');
       return;
+    }
+
+    if(!password){
+      setError('Password is required');
     }
 
     setError(null);
@@ -28,60 +33,30 @@ const Login = ({ setCurrentPage }) => {
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Email Field */}
-        <div className="flex flex-col space-y-1">
-          <label htmlFor="email" className="text-sm font-medium text-gray-700">
-            Email Address
-          </label>
-          <input
-            id="email"
-            type="email"
-            placeholder="sample@gmail.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
+        <Input
+          value={email}
+          onChange={({ target }) => setEmail(target.value)}
+          label="Email Address"
+          placeholder="sample@gmail.com"
+          type="email"
+        />
+        <Input
+          value={password}
+          onChange={({ target }) => setPassword(target.value)}
+          label="Password"
+          placeholder="Password"
+          type="password"
+        />
 
-        {/* Password Field with Toggle */}
-        <div className="flex flex-col space-y-1">
-          <label htmlFor="password" className="text-sm font-medium text-gray-700">
-            Password
-          </label>
-          <div className="relative">
-            <input
-              id="password"
-              type={showPassword ? 'text' : 'password'}
-              placeholder="Password"
-              value={password}
-              minLength={8}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-2 pr-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <button
-              type="button"
-              onClick={() => setShowPassword((prev) => !prev)}
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 focus:outline-none"
-              tabIndex={-1}
-              aria-label="Toggle password visibility"
-            >
-              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-            </button>
-          </div>
-        </div>
-
-        {/* Error Message */}
         {error && <p className="text-red-500 text-xs pb-2.5">{error}</p>}
 
-        {/* Login Button */}
         <button
           type="submit"
-          className="w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="btn-primary"
         >
           LOGIN
         </button>
 
-        {/* Signup Link */}
         <p className="text-[13px] text-slate-800 my-3 text-center">
           Don't have an account?{' '}
           <button
