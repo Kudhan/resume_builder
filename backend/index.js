@@ -4,6 +4,7 @@ const cors=require("cors")
 const path=require("path");
 const connectDB = require("./config/db");
 const authRoutes=require('./routes/authRoutes');
+const resumeRoutes = require('./routes/resumeRouter')
 
 const app = express();
 
@@ -21,7 +22,7 @@ app.use(express.json());
 
 //Routes
 app.use("/api/auth",authRoutes);
-
+app.use("/api/resume",resumeRoutes);
 app.use("/uploads",express.static(path.join(__dirname,"uploads"),{
     setHeaders:(res,path)=>{
         res.set("Access-Control-Allow-Origin","http://localhost:5173");
